@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CalculatingSalary {
-    @Autowired
     private Salary s;
+    @Autowired
     public CalculatingSalary(Salary s){
         this.s =s;
     }
