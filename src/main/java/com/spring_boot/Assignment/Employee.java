@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name="employees")
 public class Employee {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long empId;
 	public String empName;
 	public String empEmail;
@@ -16,9 +16,8 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Employee(Long empId, String empName, String empEmail) {
+	public Employee(String empName, String empEmail) {
 		super();
-		this.empId = empId;
 		this.empName = empName;
 		this.empEmail = empEmail;
 	}
