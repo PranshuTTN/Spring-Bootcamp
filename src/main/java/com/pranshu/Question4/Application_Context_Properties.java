@@ -9,6 +9,7 @@ public class Application_Context_Properties {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(Application_Context_Properties.class,args);
         CalculatingSalary calculatingSalary = applicationContext.getBean(CalculatingSalary.class);
+//        applicationContext.getBean(WorkSalary.class);
         int result = calculatingSalary.calculatingSalary();
         System.out.println(result);
     }
