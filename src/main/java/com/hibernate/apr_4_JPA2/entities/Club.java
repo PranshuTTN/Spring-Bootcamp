@@ -7,13 +7,13 @@ import jakarta.persistence.Table;
 
 @Entity
 //Joined Strategy
-//@Table(name = "club_join")
-//@PrimaryKeyJoinColumn(name = "jerseyNumber")
+@Table(name = "club_join")
+@PrimaryKeyJoinColumn(name = "jerseyNumber")
 //Table Per Class Strategy
 //@Table(name = "club")
 // Single Table Strategy
 //@DiscriminatorValue(value = "cl")
-@DiscriminatorValue("cl")
+//@DiscriminatorValue("cl")
 public class Club extends Player{
     private String clubName;
 
@@ -25,10 +25,4 @@ public class Club extends Player{
         this.clubName = clubName;
     }
 
-    @Override
-    public String toString() {
-        return "Club{" +
-                "clubName='" + clubName + '\'' +
-                '}';
-    }
 }

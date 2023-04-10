@@ -85,7 +85,6 @@ class Apr4Jpa2ApplicationTests {
 	@Test
 	public void testCreatePlayerClub() {
 		Club cl = new Club();
-		cl.setJerseyNumber(7);
 		cl.setName("Pranshu");
 		cl.setClubName("Barcelona");
 		playerRepository.save(cl);
@@ -93,7 +92,6 @@ class Apr4Jpa2ApplicationTests {
 	@Test
 	public void testCreatePlayerCountry() {
 		Country co = new Country();
-		co.setJerseyNumber(11);
 		co.setName("Pranshu");
 		co.setCountryName("India");
 		playerRepository.save(co);

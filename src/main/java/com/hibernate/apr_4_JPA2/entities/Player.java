@@ -4,16 +4,17 @@ import jakarta.persistence.*;
 
 @Entity
 //Joined Strategy
-//@Table(name = "player_join")
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "player_join")
+@Inheritance(strategy = InheritanceType.JOINED)
 //Table Per Class Strategy
 //@Table(name = "player")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 // Single Table Strategy
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "pmode",discriminatorType = DiscriminatorType.STRING)
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "pmode",discriminatorType = DiscriminatorType.STRING)
 public abstract class Player {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int jerseyNumber;
     private String name;
 
@@ -21,9 +22,9 @@ public abstract class Player {
         return jerseyNumber;
     }
 
-    public void setJerseyNumber(int jerseyNumber) {
-        this.jerseyNumber = jerseyNumber;
-    }
+//    public void setJerseyNumber(int jerseyNumber) {
+//        this.jerseyNumber = jerseyNumber;
+//    }
 
     public String getName() {
         return name;
@@ -33,11 +34,4 @@ public abstract class Player {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Player{" +
-                "jerseyNumber=" + jerseyNumber +
-                ", position='" + name + '\'' +
-                '}';
-    }
 }
