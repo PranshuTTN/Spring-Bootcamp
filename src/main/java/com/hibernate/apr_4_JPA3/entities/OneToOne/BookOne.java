@@ -8,7 +8,7 @@ public class BookOne {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
-    @OneToOne(mappedBy = "bookOne")
+    @OneToOne
     private AuthorOne authorOne;
 
     public int getId() {

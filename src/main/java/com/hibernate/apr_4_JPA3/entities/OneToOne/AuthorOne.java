@@ -9,7 +9,6 @@ public class AuthorOne {
     private int id;
     private String name;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bookone_id")
     private BookOne bookOne;
     public int getId() {
         return id;
