@@ -4,10 +4,13 @@ import com.hibernate.apr_4_JPA3.entities.Address;
 import com.hibernate.apr_4_JPA3.entities.Author;
 import com.hibernate.apr_4_JPA3.entities.ManyToMany.AuthorMany;
 import com.hibernate.apr_4_JPA3.entities.ManyToMany.BookMany;
+import com.hibernate.apr_4_JPA3.entities.OneToMany.AuthorOneMany;
+import com.hibernate.apr_4_JPA3.entities.OneToMany.BookOneMany;
 import com.hibernate.apr_4_JPA3.entities.OneToOne.AuthorOne;
 import com.hibernate.apr_4_JPA3.entities.OneToOne.BookOne;
 import com.hibernate.apr_4_JPA3.entities.Subject;
 import com.hibernate.apr_4_JPA3.repository.AuthorManyRepository;
+import com.hibernate.apr_4_JPA3.repository.AuthorOneManyRepository;
 import com.hibernate.apr_4_JPA3.repository.AuthorOneRepository;
 import com.hibernate.apr_4_JPA3.repository.AuthorRepository;
 import org.junit.jupiter.api.Test;
@@ -25,6 +28,8 @@ class Apr4Jpa3ApplicationTests {
 	AuthorManyRepository authorManyRepository;
 	@Autowired
 	AuthorOneRepository authorOneRepository;
+	@Autowired
+	AuthorOneManyRepository authorOneManyRepository;
 	@Test
 	void testCreateAuthor() {
 		Author author = new Author();
@@ -80,6 +85,11 @@ class Apr4Jpa3ApplicationTests {
 
 		authorMany.setBookManySet(bookManyHashSet);
 
+		HashSet<AuthorMany> authorManyHashSet = new HashSet<>();
+		authorManyHashSet.add(authorMany);
+
+		bookMany.setAuthorManySet(authorManyHashSet);
+
 		authorManyRepository.save(authorMany);
 	}
 
@@ -93,9 +103,28 @@ class Apr4Jpa3ApplicationTests {
 		bookOne.setName("Python");
 
 		authorOne.setBookOne(bookOne);
+		bookOne.setAuthorOne(authorOne);
 
 		authorOneRepository.save(authorOne);
 	}
 	//OneToMany
+	@Test
+	public void testCreateAuthorOneBookMany(){
+		AuthorOneMany authorOneMany = new AuthorOneMany();
+		authorOneMany.setName("Divyanshu");
 
+		HashSet<BookOneMany> bookOneManyHashSet = new HashSet<>();
+		BookOneMany bookOneMany1 = new BookOneMany();
+		bookOneMany1.setName("Spring");
+		bookOneManyHashSet.add(bookOneMany1);
+		BookOneMany bookOneMany2 = new BookOneMany();
+		bookOneMany2.setName("Spring");
+		bookOneManyHashSet.add(bookOneMany2);
+
+		authorOneMany.setBookOneManySet(bookOneManyHashSet);
+		bookOneMany1.setAuthorOneMany(authorOneMany);
+		bookOneMany2.setAuthorOneMany(authorOneMany);
+
+		authorOneManyRepository.save(authorOneMany);
+	}
 }

@@ -1,0 +1,7 @@
+Q9. Which method on the session object can be used to remove an object from the cache?
+A9. 1)We can use session evict() method to remove a single object from the hibernate first level cache.
+2)We can use session clear() method to clear the cache i.e delete all the objects from the cache.
+3)We can use session contains() method to check if an object is present in the hibernate cache or not,
+if the object is found in cache, it returns true or else it returns false.
+
+Q10. What does @transactional annotation do?
