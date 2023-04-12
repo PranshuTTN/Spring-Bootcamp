@@ -2,8 +2,7 @@ package com.hibernate.apr_4_JPA3.entities;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Author {
@@ -13,8 +12,8 @@ public class Author {
     private String name;
     @Embedded
     Address address;
-    @OneToMany(mappedBy = "author",cascade = CascadeType.PERSIST)
-    private Set<Subject> subjects;
+    @ElementCollection
+    private List<String> subjects;
     public int getId() {
         return id;
     }
@@ -39,20 +38,11 @@ public class Author {
         this.address = address;
     }
 
-    public Set<Subject> getSubjects() {
+    public List<String> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(Set<Subject> subjects) {
+    public void setSubjects(List<String> subjects) {
         this.subjects = subjects;
-    }
-    public void addSubject(Subject subject){
-        if(subject!=null){
-            if (subjects==null){
-                subjects=new HashSet<>();
-            }
-            subject.setAuthor(this);
-            subjects.add(subject);
-        }
     }
 }

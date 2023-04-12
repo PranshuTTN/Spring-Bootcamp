@@ -6,19 +6,20 @@ import com.hibernate.apr_4_JPA3.entities.ManyToMany.AuthorMany;
 import com.hibernate.apr_4_JPA3.entities.ManyToMany.BookMany;
 import com.hibernate.apr_4_JPA3.entities.OneToMany.AuthorOneMany;
 import com.hibernate.apr_4_JPA3.entities.OneToMany.BookOneMany;
+import com.hibernate.apr_4_JPA3.entities.OneToManyBi.AuthorOneManyBi;
+import com.hibernate.apr_4_JPA3.entities.OneToManyBi.BookOneManyBi;
+import com.hibernate.apr_4_JPA3.entities.OneToManyUni.AuthorOneManyUni;
+import com.hibernate.apr_4_JPA3.entities.OneToManyUni.BookOneManyUni;
 import com.hibernate.apr_4_JPA3.entities.OneToOne.AuthorOne;
 import com.hibernate.apr_4_JPA3.entities.OneToOne.BookOne;
-import com.hibernate.apr_4_JPA3.entities.Subject;
-import com.hibernate.apr_4_JPA3.repository.AuthorManyRepository;
-import com.hibernate.apr_4_JPA3.repository.AuthorOneManyRepository;
-import com.hibernate.apr_4_JPA3.repository.AuthorOneRepository;
-import com.hibernate.apr_4_JPA3.repository.AuthorRepository;
+import com.hibernate.apr_4_JPA3.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootTest
 class Apr4Jpa3ApplicationTests {
@@ -30,6 +31,11 @@ class Apr4Jpa3ApplicationTests {
 	AuthorOneRepository authorOneRepository;
 	@Autowired
 	AuthorOneManyRepository authorOneManyRepository;
+	@Autowired
+	AuthorOneManyUniRepository authorOneManyUniRepository;
+	@Autowired
+	AuthorOneManyBiRepository authorOneManyBiRepository;
+
 	@Test
 	void testCreateAuthor() {
 		Author author = new Author();
@@ -57,18 +63,7 @@ class Apr4Jpa3ApplicationTests {
 
 		author.setAddress(address);
 
-		Subject subject1 = new Subject();
-		subject1.setName("Java");
-
-		Subject subject2 = new Subject();
-		subject2.setName("Python");
-
-		Subject subject3 = new Subject();
-		subject3.setName("C++");
-
-		author.addSubject(subject1);
-		author.addSubject(subject2);
-		author.addSubject(subject3);
+		author.setSubjects(Arrays.asList("Java","Python"));
 		authorRepository.save(author);
 	}
 
@@ -107,6 +102,7 @@ class Apr4Jpa3ApplicationTests {
 
 		authorOneRepository.save(authorOne);
 	}
+
 	//OneToMany
 	@Test
 	public void testCreateAuthorOneBookMany(){
@@ -126,5 +122,39 @@ class Apr4Jpa3ApplicationTests {
 		bookOneMany2.setAuthorOneMany(authorOneMany);
 
 		authorOneManyRepository.save(authorOneMany);
+	}
+	//OneToMany Uni
+	@Test
+	public void testCreateAuthorOneBookManyUni(){
+		AuthorOneManyUni authorOneManyUni = new AuthorOneManyUni();
+		authorOneManyUni.setName("Jai");
+
+		HashSet<BookOneManyUni> bookOneManyUniHashSet = new HashSet<>();
+		BookOneManyUni bookOneManyUni1 = new BookOneManyUni();
+		bookOneManyUni1.setName("SpringBoot");
+		BookOneManyUni bookOneManyUni2 = new BookOneManyUni();
+		bookOneManyUni2.setName("Security");
+		bookOneManyUniHashSet.add(bookOneManyUni1);
+		bookOneManyUniHashSet.add(bookOneManyUni2);
+		authorOneManyUni.setBookOneManyUniSet(bookOneManyUniHashSet);
+
+		authorOneManyUniRepository.save(authorOneManyUni);
+	}
+	@Test
+	public void testCreateAuthorOneBookManyBi(){
+		AuthorOneManyBi authorOneManyBi = new AuthorOneManyBi();
+		authorOneManyBi.setName("Jai");
+
+		HashSet<BookOneManyBi> bookOneManyBiHashSet = new HashSet<>();
+		BookOneManyBi bookOneManyBi1 = new BookOneManyBi();
+		bookOneManyBi1.setName("SpringBoot");
+		BookOneManyBi bookOneManyBi2 = new BookOneManyBi();
+		bookOneManyBi2.setName("Security");
+		bookOneManyBiHashSet.add(bookOneManyBi1);
+		bookOneManyBiHashSet.add(bookOneManyBi2);
+		authorOneManyBi.setBookOneManyBiSet(bookOneManyBiHashSet);
+		bookOneManyBi1.setAuthorOneMany(authorOneManyBi);
+		bookOneManyBi2.setAuthorOneMany(authorOneManyBi);
+		authorOneManyBiRepository.save(authorOneManyBi);
 	}
 }
